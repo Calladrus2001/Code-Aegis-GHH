@@ -2,7 +2,6 @@ import 'package:code_margerita/Services/DecodingService.dart';
 import 'package:code_margerita/Services/Geolocation.dart';
 import 'package:code_margerita/Services/SendSMS.dart';
 import 'package:code_margerita/Utils/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get_storage/get_storage.dart';
@@ -32,7 +31,6 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     order = box.read("order");
-    isBuddyModeOn = box.read("buddy");
     decoded = Decoding().decode(order!);
     super.initState();
   }
@@ -185,11 +183,6 @@ class _CartScreenState extends State<CartScreen> {
                       String body =
                           "\n~~Code:Aegis ALERT!~~\nNumber of Aggressors: $abuser\nArmed?: $armed\nNeed Medical Aid: $med\nIn Pursuit?: $kid\nMinors Present? : $close\nlocation: $location";
                       TwilioSMS().sendSMS(body);
-                      body =
-                          "\n~~Code:Aegis BUDDY MODE ALERT!~~\nNumber of Aggressors: $abuser\nArmed?: $armed\nNeed Medical Aid: $med\nIn Pursuit?: $kid\nMinors Present? : $close\nlocation: $location";
-                      if (isBuddyModeOn) {
-                        TwilioSMS().sendSMS(body);
-                      }
                       box.remove(abuser);
                       box.remove(armed);
                       box.remove(med);
