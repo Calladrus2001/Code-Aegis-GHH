@@ -85,8 +85,9 @@ class Result {
         iconBackgroundColor:
             iconBackgroundColorValues.map[json["icon_background_color"]],
         iconMaskBaseUri: json["icon_mask_base_uri"],
-        moreOpeningHours:
-            List<dynamic>.from(json["more_opening_hours"].map((x) => x)),
+        moreOpeningHours: json["more_opening_hours"] != null
+            ? List<dynamic>.from(json["more_opening_hours"].map((x) => x))
+            : [""],
         name: json["name"],
         openingHours: json["opening_hours"] != null
             ? OpeningHours.fromJson(json["opening_hours"])

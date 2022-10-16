@@ -29,7 +29,6 @@ class _ChatbotState extends State<Chatbot> {
   bool isListening = false;
   bool isComplete = false;
   bool placedOrder = false;
-  bool haveResult = false;
   List<Map> messsages = [];
   String _text = "";
   List<String> codewords = Decoding().getCodewords(codebase);
@@ -67,23 +66,6 @@ class _ChatbotState extends State<Chatbot> {
       messsages.insert(0, {"data": 0, "message": textResponse});
     });
     getResults();
-    if (haveResult == true) {
-      messsages.insert(0, {
-        "data": 0,
-        "message":
-            "${places!.results![0].name}\n\n${places!.results![0].formattedAddress}"
-      });
-      messsages.insert(0, {
-        "data": 0,
-        "message":
-            "${places!.results![1].name}\n\n${places!.results![1].formattedAddress}"
-      });
-      messsages.insert(0, {
-        "data": 0,
-        "message":
-            "${places!.results![2].name}\n\n${places!.results![2].formattedAddress}"
-      });
-    }
   }
 
   Future getResults() async {
@@ -94,7 +76,23 @@ class _ChatbotState extends State<Chatbot> {
     places = await NearYouAPI().getResult(_currLocation);
     if (places != null) {
       setState(() {
-        haveResult = true;
+        setState(() {
+          messsages.insert(0, {
+            "data": 0,
+            "message":
+                "${places!.results![0].name}\n\n${places!.results![0].formattedAddress}"
+          });
+          messsages.insert(0, {
+            "data": 0,
+            "message":
+                "${places!.results![1].name}\n\n${places!.results![1].formattedAddress}"
+          });
+          messsages.insert(0, {
+            "data": 0,
+            "message":
+                "${places!.results![2].name}\n\n${places!.results![2].formattedAddress}"
+          });
+        });
       });
     }
   }
