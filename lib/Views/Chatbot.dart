@@ -67,7 +67,9 @@ class _ChatbotState extends State<Chatbot> {
     setState(() {
       messsages.insert(0, {"data": 0, "message": textResponse});
     });
-    getResults();
+    if (textResponse == "Got it, Searching for Mental Health Experts...") {
+      getResults();
+    }
   }
 
   Future getResults() async {

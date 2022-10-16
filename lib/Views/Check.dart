@@ -76,6 +76,7 @@ class _CheckScreenState extends State<CheckScreen> {
                       ),
                       onTap: () {
                         if (_input == secret) {
+                          box.write("dummy", false);
                           Get.to(() => AuthScreen());
                         } else {
                           box.write("dummy", true);
