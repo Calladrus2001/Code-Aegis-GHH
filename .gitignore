@@ -55,3 +55,4 @@ assets/*.json
 server/node_modules
 server/.env
 server/serviceAccount.json
+screenshots/

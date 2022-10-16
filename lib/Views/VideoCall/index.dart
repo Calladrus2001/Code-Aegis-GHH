@@ -133,7 +133,7 @@ class _IndexPageState extends State<IndexPage> {
                       if (_role == ClientRole.Broadcaster) {
                         String body =
                             "\n~~Code:Aegis ALERT~~\nSomeone that has listed you as an emergency contact is trying to contact you!\n\n Channel name: ${_channelController.text}\n\nJoin as Audience!";
-                        TwilioSMS().sendSMS(body);
+                        // TwilioSMS().sendSMS(body);
                       }
                       onJoin();
                     },

@@ -1,4 +1,5 @@
 import 'package:code_margerita/Views/Auth.dart';
+import 'package:code_margerita/Views/Check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: AuthScreen()));
+        home: CheckScreen()));
   }
 }

@@ -29,6 +29,7 @@ class _ChatbotState extends State<Chatbot> {
   bool isListening = false;
   bool isComplete = false;
   bool placedOrder = false;
+  late bool dummy;
   List<Map> messsages = [];
   String _text = "";
   List<String> codewords = Decoding().getCodewords(codebase);
@@ -43,6 +44,7 @@ class _ChatbotState extends State<Chatbot> {
 
   @override
   void initState() {
+    dummy = box.read("dummy");
     getInstance();
     _speech = stt.SpeechToText();
     box.write("codewords", codewords);
@@ -106,8 +108,12 @@ class _ChatbotState extends State<Chatbot> {
         backgroundColor: Colors.white,
         child: Icon(Icons.shopping_cart_outlined, color: clr1),
         onPressed: () {
-          box.write("order", _text);
-          Get.to(() => CartScreen());
+          if (dummy == true) {
+            Get.snackbar("Code:Aegis", "Cart is Empty");
+          } else {
+            box.write("order", _text);
+            Get.to(() => CartScreen());
+          }
         },
       ),
       body: Padding(
@@ -124,25 +130,27 @@ class _ChatbotState extends State<Chatbot> {
                         messsages[index]["data"]))),
             Column(
               children: [
-                GestureDetector(
-                  child: const Chip(
-                    elevation: 4.0,
-                    backgroundColor: Colors.white,
-                    label: Text("Glossary",
-                        style: TextStyle(color: Colors.deepOrangeAccent)),
-                  ),
-                  onTap: () {
-                    showModalBottomSheet(
-                        isDismissible: false,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(20))),
-                        context: context,
-                        builder: (context) {
-                          return buildSheet();
-                        });
-                  },
-                ),
+                dummy
+                    ? SizedBox()
+                    : GestureDetector(
+                        child: const Chip(
+                          elevation: 4.0,
+                          backgroundColor: Colors.white,
+                          label: Text("Glossary",
+                              style: TextStyle(color: Colors.deepOrangeAccent)),
+                        ),
+                        onTap: () {
+                          showModalBottomSheet(
+                              isDismissible: false,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20))),
+                              context: context,
+                              builder: (context) {
+                                return buildSheet();
+                              });
+                        },
+                      ),
                 Container(
                   child: ListTile(
                     title: Container(
